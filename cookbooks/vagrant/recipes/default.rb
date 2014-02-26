@@ -89,6 +89,6 @@ bash "load the fixtures" do
   user USER
   code <<-EOH
   source #{HOME}/default/bin/activate
-  DATABASE_URL=postgres://user_default:pass@localhost:5432/request_data python #{VAGRANT_DIR}/manage.py loaddata fixtures/initial_data.json
+  DATABASE_URL=postgres://user_default:pass@localhost:5432/request_data python #{VAGRANT_DIR}/manage.py loaddata #{VAGRANT_DIR}/fixtures/initial_data.json
   EOH
 end
