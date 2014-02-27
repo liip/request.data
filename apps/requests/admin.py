@@ -1,4 +1,4 @@
-from request_data.models import User, Request, Comment, Agency
+from requests.models import User, Request, Comment, Agency
 from django.contrib import admin
 
 class EntryAdmin(admin.ModelAdmin):
