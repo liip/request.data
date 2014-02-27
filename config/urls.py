@@ -22,5 +22,5 @@ if settings.DEBUG:
 
 # our apps
 urlpatterns += patterns('',
-  url(r'^requests/', include(request_urls, namespace='requests')),
-  url(r'^pages/', include(page_urls, namespace='pages')),)
+  url(r'^requests/', include(request_urls)),
+  url(r'^pages/', include(page_urls)),)
