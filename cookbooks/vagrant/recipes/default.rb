@@ -67,7 +67,7 @@ bash "make sure postgres is using UTF-8" do
   EOH
 end
 
-bash "setup postgres db for ckan" do
+bash "setup postgres db" do
   user "postgres"
   not_if "sudo -u postgres psql -c '\\l' | grep request_data"
   code <<-EOH

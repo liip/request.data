@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{req.title}}{% endblock %}
+
+{% block content %}
+    <h1>{{req.title}}</h1>
+    <div class="comments">
+        {{req.description}}
+        {% for c in req.comments.all %}
+            <div class="comment">
+                {{c.description}}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
