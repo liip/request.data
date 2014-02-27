@@ -1,1 +1,1 @@
-web: gunicorn request_data.wsgi
+web: gunicorn config.wsgi

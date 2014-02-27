@@ -1,5 +1,6 @@
-from django.conf.urls.defaults import patterns, include, url
-from request_data import settings
+from django.conf.urls import patterns, include, url
+from config import settings
+from apps.requests import urls as request_urls
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -14,8 +15,10 @@ urlpatterns = patterns('',
 )
 
 if settings.DEBUG:
-    urlpatterns += patterns('',
-                            (r'^%s(?P<path>.*)$' % settings.MEDIA_URL, 'django.views.static.serve', {'document_root' : settings.MEDIA_ROOT}))
+    urlpatterns += patterns('django.views.static',
+        url(r'static/(?P<path>.*)$', 'serve', {'document_root': settings.STATIC_ROOT}),
+    )
 
+# our apps
 urlpatterns += patterns('',
-                        (r'^', include('request_data.request_data.urls')))
+  url(r'^requests/', include(request_urls, namespace='requests')),)
