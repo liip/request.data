@@ -1,12 +1,9 @@
 from django.conf.urls import patterns, include, url
 
-from django.contrib import admin
-admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'request_data.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^request/([0-9]+/?$', 'request_data.request_data.views.request'),
+    url(r'^$/?$', 'request_data.request_data.views.create_request'),
+    url(r'^faq/?$', 'request_data.request_data.views.faq'),
+    url(r'^about/?$', 'request_data.request_data.views.about')
 )
