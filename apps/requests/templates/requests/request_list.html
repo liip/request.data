@@ -1,12 +1,16 @@
-{% extends "base.html" %}
+{% extends "requests/base.html" %}
 
 {% block title %}{{state}} requests{% endblock %}s
 
 {% block content %}
     <h1>{{state}} requests</h1>
     <div>
-        {% for r in requests %}
-            <div>{{r.title}}</div>
-        {% endfor %}
+        {% if requests %}
+            {% for r in requests %}
+                <div>{{r.title}}</div>
+            {% endfor %}
+        {% else %}
+            No matching requests.
+        {% endif %}
     </div>
 {% endblock %}

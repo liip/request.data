@@ -17,19 +17,24 @@ from datetime import datetime
 
 
 def request_detail(request, request_id):
-    return render_to_response("request_detail.html", {"req": go4(Request, id=request_id)})
+    return render_to_response("requests/request_detail.html", {"req": go4(Request, id=request_id)})
 
 def create_request(request):
+    c = {}
     if request.method == 'POST':
-        new_request = RequestForm(request.POST)
-    return render_to_response("create.html")
+        form = RequestForm(request.POST)
+        new_request = form.save(commit=False)
+    else:
+        form = RequestForm()
+        c['form'] = form
+    return render_to_response("requests/create.html", c)
 
 def request_list(request, state):
     c = {}
     if state == "all":
         c["state"] = state
-        c["requests"] = glo4(Request.objects.order_by('-created')
+        c["requests"] = glo4(Request.objects.order_by('-created'))
     else:
         c["state"] = state
         c["requests"] = glo4(Request.objects.order_by('-created'), state=state)
-    return render_to_response("request_list.html", c)
+    return render_to_response("requests/request_list.html", c)

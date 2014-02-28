@@ -1,8 +1,11 @@
-{% extends "base.html" %}
+{% extends "requests/base.html" %}
 
 {% block title %}Create Request{% endblock %}s
 
 {% block content %}
     <h1>Create Request</h1>
-    <div>[stuff]</div>
+    <form method='post'>
+        {{ form.as_p }}
+        <input type='submit' value='Submit'>
+    </form>
 {% endblock %}
