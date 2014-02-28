@@ -25,8 +25,8 @@ def request_list(request, state):
     c = {}
     if state == "all":
         c["state"] = state
-        c["requests"] = glo4(Request)
+        c["requests"] = glo4(Request.objects.order_by('-created')
     else:
         c["state"] = state
-        c["requests"] = glo4(Request, state=state)
+        c["requests"] = glo4(Request.objects.order_by('-created'), state=state)
     return render_to_response("request_list.html", c)
