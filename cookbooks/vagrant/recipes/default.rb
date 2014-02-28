@@ -30,6 +30,7 @@ python-pip
 python-dev
 python-virtualenv
 python-software-properties
+libfontconfig1
 ).each { | pkg | package pkg }
 
 
@@ -53,6 +54,30 @@ bash "install pip requirements" do
   code <<-EOH
   source #{HOME}/default/bin/activate
   pip install -r #{VAGRANT_DIR}/requirements.txt
+  EOH
+end
+
+bash "install PhantomJs " do
+  not_if "which phantomjs"
+  user "root"
+  code <<-EOH
+    set -e
+    wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
+    tar jxf phantomjs-1.9.7-linux-x86_64.tar.bz2
+    rm -rf phantomjs-1.9.7-linux-x86_64.tar.bz2
+    ln -sf /phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
+  EOH
+end
+
+bash "install CasperJs " do
+  not_if "which casperjs"
+  user "root"
+  code <<-EOH
+    set -e
+    git clone git://github.com/n1k0/casperjs.git
+    cd casperjs
+    git checkout tags/1.0.2
+    ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
   EOH
 end
 
