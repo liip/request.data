@@ -4,6 +4,7 @@ from django.shortcuts import get_list_or_404 as glo4
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from apps.requests.models import *
+from apps.requests.forms import *
 
 import json
 from django.conf import settings
@@ -19,6 +20,8 @@ def request_detail(request, request_id):
     return render_to_response("request_detail.html", {"req": go4(Request, id=request_id)})
 
 def create_request(request):
+    if request.method == 'POST':
+        new_request = RequestForm(request.POST)
     return render_to_response("create.html")
 
 def request_list(request, state):
