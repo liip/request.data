@@ -1,6 +1,5 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.shortcuts import get_object_or_404 as go4
-from django.shortcuts import get_list_or_404 as glo4
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from apps.requests.models import *
@@ -23,11 +22,14 @@ def create_request(request):
     c = {}
     if request.method == 'POST':
         form = RequestForm(request.POST)
-        new_request = form.save(commit=False)
+        if form.is_valid():
+            new_request = form.save()
+            c["req"] = new_request
+        return HttpResponseRedirect('request/' + str(new_request.id), c)
     else:
         form = RequestForm()
         c['form'] = form
-    return render_to_response("requests/create.html", c)
+        return render_to_response('requests/create.html', c)
 
 def request_list(request, state):
     c = {}
@@ -37,4 +39,4 @@ def request_list(request, state):
     else:
         c["state"] = state
         c["requests"] = list(Request.objects.order_by('-created').filter(state=state))
-    return render_to_response("requests/request_list.html", c)
+    return render_to_response('requests/request_list.html', c)
