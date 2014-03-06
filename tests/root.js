@@ -1,6 +1,6 @@
 casper.test.begin('Calling the root url returns a page', 1, function suite(test) {
     casper.start('http://localhost:5000/', function() {
-        test.assertTitle('request.data', 'the title is the one expected');
+        test.assertTitle('request.opendata.ch', 'the title is the one expected');
     });
 
     casper.run(function() {
