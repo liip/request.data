@@ -27,4 +27,30 @@
       </div>
     </div>
   </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <span>All Requests</span>
+      </div>
+    </div>
+    {% if requests %}
+        {% for r in requests %}
+          <div class="row">
+            <div class="col-md-12">
+              <span class="title">{{ r.title }}</span>
+              <span class="creator">{{ r.creator.name }}</span>
+              <span class="created">{{ r.created }}</span>
+              <span class="agency">{{ r.agency.name }}</span>
+              <span class="state {{ r.state }}">{{ r.state }}</span>
+            </div>
+          </div>
+        {% endfor %}
+    {% else %}
+      <div class="row">
+        <div class="col-md-12">
+          <p>No matching requests.</p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

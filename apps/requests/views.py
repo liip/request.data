@@ -19,6 +19,7 @@ def home(request):
     c['request_form'] = RequestForm()
     c['agency_form'] = AgencyForm()
     c['user_form'] = UserForm()
+    c["requests"] = list(Request.objects.order_by('-created'))
     
     if request.method == 'POST':
         request_form = RequestForm(request.POST)
