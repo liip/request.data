@@ -14,25 +14,47 @@ from django.utils import formats
 from django.core.mail import send_mail, mail_admins
 from datetime import datetime
 
+def home(request):
+    c = {}
+    c['request_form'] = RequestForm()
+    if request.method == 'POST':
+        request_form = RequestForm(request.POST)
+        if request_form.is_valid():
+            return HttpResponseRedirect('create/')
+    else:
+        return render(request, "requests/home.html", c)
 
 def request_detail(request, request_id):
-    return render_to_response("requests/request_detail.html", {"req": go4(Request, id=request_id)})
+    return render(request, "requests/request_detail.html", {"req": go4(Request, id=request_id)})
 
 def create_request(request):
     c = {}
     if request.method == 'POST':
         request_form = RequestForm(request.POST)
         user_form = UserForm(request.POST)
-        if request_form.is_valid() and user_form.is_valid:
+        agency_form = AgencyForm(request.POST)
+
+        if request_form.is_valid() and user_form.is_valid() and agency_form.is_valid():
             new_request = request_form.save(commit=False)
-            new_user = user_form.save()
-            new_request.creator = new_user
+            try:
+                new_request.creator = User.objects.get(email=user_form.cleaned_data['email'])
+            except User.DoesNotExist:
+                new_request.creator = user_form.save()
+            new_request = request_form.save(commit=False)
+            if not new_request.agency:
+                new_agency = agency_form.save(commit=False)
+                new_agency.email = "unknown@unknown.com"
+                new_agency.save()
+                agency_form.save_m2m()
+                new_request.agency = new_agency
             new_request.save()
-            c['req'] = new_request            
+            request_form.save_m2m()
+            c['req'] = new_request
             return HttpResponseRedirect('request/' + str(new_request.id), c)
     else:
         c['request_form'] = RequestForm()
         c['user_form'] = UserForm()
+        c['agency_form'] = AgencyForm()
         return render(request, 'requests/create.html', c)
 
 def request_list(request, state):

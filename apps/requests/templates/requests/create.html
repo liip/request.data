@@ -6,6 +6,9 @@
     <h1>Create Request</h1>
     <form method='post'>{% csrf_token %}
         {{ request_form.as_p }}
+        <p>A new agency (specified below)</p>
+        {{ agency_form.as_p }}
+        <p>What is your name and email address?</p>
         {{ user_form.as_p }}
         <input type='submit' value='Submit'>
     </form>

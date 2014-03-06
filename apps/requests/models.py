@@ -6,15 +6,15 @@ from django.conf import settings
 
 class User(models.Model):
     name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255, unique=True)
     def __unicode__(self):
         return self.name
     
 class Agency(models.Model):
-    name = models.CharField(max_length=255)
+    a_name = models.CharField(max_length=255, blank=True, unique=True)
     email = models.EmailField(max_length=255)
     def __unicode__(self):
-        return self.name
+        return self.a_name
     
 class Request(models.Model):
     STATE_CHOICES = (
@@ -25,7 +25,7 @@ class Request(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=False)
     created = models.DateTimeField(auto_now_add=True)
-    agency = models.ForeignKey(Agency)  
+    agency = models.ForeignKey(Agency, related_name="requests", null=True, blank=True)  
     users = models.ManyToManyField(User, related_name="requests")
     creator = models.ForeignKey(User, related_name="created_requests")
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='pending')
