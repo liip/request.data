@@ -13,3 +13,9 @@ As soon as all the dependencies are installed you can ssh into the virtualmachin
 
     vagrant ssh
     foreman start
+
+## General development
+
+When a change is made to the database data that should be loaded by default replace the fixtures.
+
+    DATABASE_URL=postgres://user_default:pass@localhost:5432/request_data python /vagrant/manage.py dumpdata > fixtures/initial_data.json
