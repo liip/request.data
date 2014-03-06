@@ -17,24 +17,15 @@ from datetime import datetime
 def home(request):
     c = {}
     c['request_form'] = RequestForm()
+    c['agency_form'] = AgencyForm()
+    c['user_form'] = UserForm()
+    
     if request.method == 'POST':
         request_form = RequestForm(request.POST)
-        if request_form.is_valid():
-            return HttpResponseRedirect('create/')
-    else:
-        return render(request, "requests/home.html", c)
-
-def request_detail(request, request_id):
-    return render(request, "requests/request_detail.html", {"req": go4(Request, id=request_id)})
-
-def create_request(request):
-    c = {}
-    if request.method == 'POST':
-        request_form = RequestForm(request.POST)
-        user_form = UserForm(request.POST)
         agency_form = AgencyForm(request.POST)
+        user_form = UserForm(request.POST)
 
-        if request_form.is_valid() and user_form.is_valid() and agency_form.is_valid():
+        if request_form.is_valid() and agency_form.is_valid() and user_form.is_valid():
             new_request = request_form.save(commit=False)
             try:
                 new_request.creator = User.objects.get(email=user_form.cleaned_data['email'])
@@ -50,12 +41,14 @@ def create_request(request):
             new_request.save()
             request_form.save_m2m()
             c['req'] = new_request
-            return HttpResponseRedirect('request/' + str(new_request.id), c)
+            return HttpResponseRedirect('requests/' + str(new_request.id), c)
+        else:
+            return HttpResponseRedirect('/', c)
     else:
-        c['request_form'] = RequestForm()
-        c['user_form'] = UserForm()
-        c['agency_form'] = AgencyForm()
-        return render(request, 'requests/create.html', c)
+        return render(request, "requests/home.html", c)
+
+def request_detail(request, request_id):
+    return render(request, "requests/request_detail.html", {"req": go4(Request, id=request_id)})
 
 def request_list(request, state):
     c = {}
