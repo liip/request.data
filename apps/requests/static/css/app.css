@@ -9,6 +9,26 @@ body {
 .form-group label {
   display: none;
 }
+.form-group input,
+.form-group textarea,
+.form-group select {
+  color: #FFFFFF;
+  font-size: 24px;
+  background-color: #E61414;
+  border-color: #FFFFFF;
+}
+
+
+.form-group input::-webkit-input-placeholder,
+.form-group textarea::-webkit-input-placeholder,
+.form-group input:-moz-placeholder,
+.form-group textarea:-moz-placeholder,
+.form-group input::-moz-placeholder,
+.form-group textarea::-moz-placeholder,
+.form-group input:-ms-input-placeholder,
+.form-group textarea:-ms-input-placeholder {  
+   color: #FFFFFF;  
+}
 
 .btn-primary {
   color: #E61414;
