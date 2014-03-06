@@ -23,6 +23,18 @@ body {
   line-height:1;
   display:inline-block;
 }
+.batch-pending:before {
+  content:attr(data-icon);
+  color: #FFBA00;
+}
+.batch-resolved:before {
+  content:attr(data-icon);
+  color: #8DBB12;
+}
+.batch-denied:before {
+  content:attr(data-icon);
+  color: #E61414;
+}
 
 .form-group label {
   display: none;
