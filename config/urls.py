@@ -23,6 +23,6 @@ if settings.DEBUG:
 
 # our apps
 urlpatterns += patterns('',
-  url(r'^requests/', include(request_urls)),
+  url(r'^$', include(request_urls)),
   url(r'^pages/', include(page_urls)),
   url(r'^emails/', include(email_urls)),)
