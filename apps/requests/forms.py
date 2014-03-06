@@ -19,7 +19,7 @@ class UserForm(ModelForm):
         fields = ['name', 'email']
 
 class AgencyForm(ModelForm):
-    a_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Which agency are you asking? (If not found in dropdown.)'}))
+    a_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Which agency are you asking? (If not found in dropdown.)'}), blank=True)
 
     class Meta:
         model = Agency
