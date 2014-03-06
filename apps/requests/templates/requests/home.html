@@ -6,20 +6,22 @@
 {% block content %}
   <div class="jumbotron">
     <div class="container">
-      <div class="col-md-6">
-        <h1>Open data.<br>State your request!</h1>
-        <h2>This is where we will put Andreas' great description of our website.<br><br>Learn more about our goal!</h2>
-      </div>
-      <div class="col-md-6">
-        <form role="form" method="post" class="form">
-            {% csrf_token %}
-            {% bootstrap_form request_form %}
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">
-                    CREATE REQUEST
-                </button>
-            {% endbuttons %}
-        </form>
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Open data.<br>State your request!</h1>
+          <h2>This is where we will put Andreas' great description of our website.<br><br>Learn more about our goal!</h2>
+        </div>
+        <div class="col-md-6">
+          <form role="form" method="post" class="form">
+              {% csrf_token %}
+              {% bootstrap_form request_form %}
+              {% buttons %}
+                  <button type="submit" class="btn btn-primary">
+                      CREATE REQUEST
+                  </button>
+              {% endbuttons %}
+          </form>
+        </div>
       </div>
     </div>
   </div>
