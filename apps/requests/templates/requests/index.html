@@ -52,7 +52,7 @@
               </div> 
             </div>
             <div class="col-md-2">
-              <a href="{% url "apps.requests.views.request_list" r.state %}"><span class="batch batch-{{ r.state }}" data-icon="&#xF090;"></span><span class="state {{ r.state }}">{{ r.state|upper }}</span></a>
+              <a href="{% url "apps.requests.views.request_list" r.state %}"><span class="batch batch-{{ r.state }}"></span><span class="state {{ r.state }}">{{ r.state|upper }}</span></a>
             </div>
           </div>
         {% endfor %}
