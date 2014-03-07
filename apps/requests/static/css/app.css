@@ -24,15 +24,15 @@ body {
   display:inline-block;
 }
 .batch-pending:before {
-  content:attr("&#xF090;");
+  content:attr("\xF090;");
   color: #FFBA00;
 }
 .batch-resolved:before {
-  content:attr("&#xF090;");
+  content:attr("\xF090;");
   color: #8DBB12;
 }
 .batch-denied:before {
-  content:attr("&#xF090;");
+  content:attr("\xF090;");
   color: #E61414;
 }
 

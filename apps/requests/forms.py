@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from apps.requests.models import Request, User, Agency
+from apps.requests.models import Request, User, Agency, Comment
 
 class RequestForm(ModelForm):
     description = forms.CharField(max_length=5000, widget=forms.Textarea(attrs={'placeholder': 'Describe your request in a few sentences.'}))
