@@ -18,7 +18,7 @@
               {% bootstrap_form agency_form %}
               {% bootstrap_form user_form %}
               {% buttons %}
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-primary btn-block">
                       CREATE REQUEST
                   </button>
               {% endbuttons %}
@@ -30,18 +30,29 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <span>All Requests</span>
+        <span class="title">All Requests</span>
       </div>
     </div>
     {% if requests %}
         {% for r in requests %}
           <div class="row">
-            <div class="col-md-12">
-              <span class="title">{{ r.title }}</span>
-              <span class="creator">{{ r.creator.name }}</span>
-              <span class="created">{{ r.created }}</span>
-              <span class="agency">{{ r.agency.name }}</span>
-              <span class="state {{ r.state }}">{{ r.state }}</span>
+            <div class="col-md-10">
+              <div>
+                <a href="{% url "apps.requests.views.request_detail" r.id %}"><span class="request_title">{{ r.title }}</span></a>
+              </div>
+              <div>
+                <span class="helper_text">created by </span>
+                <span class="creator">{{ r.creator.name }}</span>
+                <span class="helper_text"> at </span>
+                <span class="created">{{ r.created }}</span>
+              </div>
+              <div>
+                <span class="helper_text">assigned to </span>
+                <span class="agency">{{ r.agency.a_name }}</span>
+              </div> 
+            </div>
+            <div class="col-md-2">
+              <a href="{% url "apps.requests.views.request_list" r.state %}"><span class="batch batch-{{ r.state }}" data-icon="&#xF090;"></span><span class="state {{ r.state }}">{{ r.state|upper }}</span></a>
             </div>
           </div>
         {% endfor %}

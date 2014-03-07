@@ -6,14 +6,71 @@ body {
   font-family: 'Droid Sans', sans-serif;
 }
 
+@font-face{
+  font-family:Batch;
+  src:url('../fonts/batch-icons-webfont.eot');
+  src:url('../fonts/batch-icons-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/batch-icons-webfont.woff') format('woff'),
+    url('../fonts/batch-icons-webfont.ttf') format('truetype'),
+    url('../fonts/batch-icons-webfont.svg#batchregular') format('svg');
+  font-weight:normal;
+  font-style:normal;
+}
+
+.batch {
+  font-family:"Batch"; 
+  font-size:52px;
+  line-height:1;
+  display:inline-block;
+}
+.batch-pending:before {
+  content:attr(data-icon);
+  color: #FFBA00;
+}
+.batch-resolved:before {
+  content:attr(data-icon);
+  color: #8DBB12;
+}
+.batch-denied:before {
+  content:attr(data-icon);
+  color: #E61414;
+}
+
 .form-group label {
   display: none;
 }
+.form-group input,
+.form-group textarea,
+.form-group select {
+  color: #FFFFFF;
+  font-size: 24px;
+  background-color: #E61414;
+  border-color: #FFFFFF;
+}
+.form-group input, .form-group select, .form-group .btn-primary {
+  height: 64px;
+}
+.form-group textarea {
+  height: 110px;
+}
 
-.btn-primary {
+.form-group input::-webkit-input-placeholder,
+.form-group textarea::-webkit-input-placeholder,
+.form-group input:-moz-placeholder,
+.form-group textarea:-moz-placeholder,
+.form-group input::-moz-placeholder,
+.form-group textarea::-moz-placeholder,
+.form-group input:-ms-input-placeholder,
+.form-group textarea:-ms-input-placeholder {  
+   color: #FFFFFF;  
+}
+
+.form-group .btn-primary {
   color: #E61414;
   background-color: #FFFFFF;
   border-color: #FFFFFF;
+  font-size: 18px;
+  font-weight: bold;
 }
 .open .dropdown-toggle.btn-primary {
   color: #E61414;
@@ -70,11 +127,23 @@ body {
 .jumbotron .h1 {
   color: inherit;
   font-size: 52px;
-  line-height: 1.16
 }
 .jumbotron h2,
 .jumbotron .h2 {
   color: inherit;
   font-size: 24px;
-  line-height: 1.16
+}
+
+span.title, span.request_title, span.creator, span.agency {
+  color: #444;
+}
+span.title {
+  font-size: 30px;
+}
+span.request_title {
+  font-size: 24px;
+  font-weight: bold;
+}
+span.creator, span.agency, span.created, span.helper_text {
+  font-size: 12px;
 }
