@@ -23,3 +23,14 @@ When a change is made to the database data that should be loaded by default repl
 Opening the django shell
   
     DATABASE_URL=postgres://user_default:pass@localhost:5432/request_data python /vagrant/manage.py shell
+
+## Deploy on heroku
+
+    heroku create some_cool_app_name --region eu --stack cedar
+    git push heroku master
+
+    # run the migrations
+    heroku run python manage.py syncdb --noinput
+
+    # load some sample data
+    heroku run python manage.py loaddata fixtures/initial_data.json

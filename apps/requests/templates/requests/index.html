@@ -27,39 +27,41 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container container-main">
     <div class="row">
       <div class="col-md-12">
         <span class="title">All Requests</span>
       </div>
     </div>
+    <div class="line-separator"></div>
     {% if requests %}
         {% for r in requests %}
           <div class="row">
             <div class="col-md-10">
-              <div>
+              <div class="request_title">
                 <a href="{% url "apps.requests.views.request_detail" r.id %}"><span class="request_title">{{ r.title }}</span></a>
               </div>
-              <div>
+              <div class="request_creation">
                 <span class="helper_text">created by </span>
                 <span class="creator">{{ r.creator.name }}</span>
                 <span class="helper_text"> at </span>
                 <span class="created">{{ r.created }}</span>
               </div>
-              <div>
+              <div class="request_assigned">
                 <span class="helper_text">assigned to </span>
                 <span class="agency">{{ r.agency.a_name }}</span>
               </div> 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 state">
               <a href="{% url "apps.requests.views.request_list" r.state %}"><span class="batch batch-{{ r.state }}"></span><span class="state {{ r.state }}">{{ r.state }}</span></a>
             </div>
           </div>
+          <div class="line-separator"></div>
         {% endfor %}
     {% else %}
       <div class="row">
         <div class="col-md-12">
-          <p>No matching requests.</p>
+          <span class="description">No matching requests.</span>
         </div>
       </div>
     {% endif %}

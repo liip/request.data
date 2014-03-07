@@ -7,6 +7,10 @@ body {
   background-color: #F2F2F2;
 }
 
+.container-main {
+  background-color: #FFF;
+}
+
 @font-face{
   font-family:Batch;
   src:url('../fonts/batch-icons-webfont.eot');
@@ -20,7 +24,7 @@ body {
 
 .batch {
   font-family:"Batch"; 
-  font-size:52px;
+  font-size:32px;
   line-height:1;
   display:inline-block;
 }
@@ -145,20 +149,53 @@ a.btn-text:focus {
   font-size: 24px;
 }
 
-span.title, span.request_title, span.creator, span.agency {
-  color: #444;
-}
 span.title {
   font-size: 30px;
   text-transform: capitalize;
+  padding: 40px 0 40px 0px;
 }
 span.request_title {
   font-size: 24px;
   font-weight: bold;
 }
-span.creator, span.agency, span.created, span.helper_text {
+span.title, span.request_title, span.creator, span.created, span.agency {
+  color: #444;
+}
+span.title a:hover,
+span.title a:focus,
+span.request_title a:hover,
+span.request_title a:focus,
+span.creator a:hover,
+span.creator a:focus,
+span.agency a:hover,
+span.agency a:focus {
+  color: #444;
+  text-decoration-color: #444;
+}
+span.creator, span.created, span.agency, span.helper_text {
   font-size: 12px;
+}
+span.helper_text {
+  color: #B0B0AD;
+}
+span.helper_text a:hover,
+span.helper_text a:focus {
+  color: #B0B0AD;
+  text-decoration-color: #B0B0AD;
 }
 span.state {
   text-transform: uppercase;
+  color: #7D7D7B;
+  font-weight: bold;
+}
+span.state a:hover,
+span.state a:focus {
+  color: #7D7D7B;
+  text-decoration-color: #7D7D7B;
+}
+
+.line-separator{
+margin: 0px 0 15px 0;
+border-bottom: 1px solid #EFEFEF;
+padding: 0px 0 20px 0;
 }
