@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-12">
         <div>
           <span class="helper_text">created by </span>
           <span class="creator">{{ req.creator.name }}</span>
@@ -36,21 +36,22 @@
           <span class="agency">{{ req.agency.a_name }}</span>
         </div>
         <div>
+          <a href="{% url "apps.requests.views.request_list" req.state %}"><span class="batch batch-{{ req.state }}"></span><span class="state {{ req.state }}">{{ req.state }}</span></a>
+        </div>
+        <div>
           <span class="description">{{req.description}}</span>
         </div>
       </div>
-      <div class="col-md-2">
-        <a href="{% url "apps.requests.views.request_list" req.state %}"><span class="batch batch-{{ req.state }}"></span><span class="state {{ req.state }}">{{ req.state }}</span></a>
-      </div>
     </div>
+    <div class="line-separator"></div>
     <div class="row">
       <div class="col-md-12">
         <span class="title">Comments</span>
       </div>
       <div class="col-md-12">
         {% for c in req.comments.all %}
-          <div class="comment">
-            {{c.description}}
+          <div>
+            <span class="comment">{{c.description}}</span>
           </div>
         {% endfor %}
       </div>

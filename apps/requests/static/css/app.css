@@ -29,16 +29,19 @@ body {
   display:inline-block;
 }
 .batch-pending:before {
-  content:attr("\F090");
+  content:"\F090";
   color: #FFBA00;
+  padding-right: 5px;
 }
 .batch-resolved:before {
-  content:attr("\F164");
+  content:"\F164";
   color: #8DBB12;
+  padding-right: 5px;
 }
 .batch-denied:before {
-  content:attr("\F14E");
+  content:"\F14E";
   color: #E61414;
+  padding-right: 5px;
 }
 
 .form-group label {
@@ -158,7 +161,7 @@ span.request_title {
   font-size: 24px;
   font-weight: bold;
 }
-span.title, span.request_title, span.creator, span.created, span.agency {
+span.title, span.request_title, span.creator, span.created, span.agency, span.comment, span.description {
   color: #444;
 }
 span.title a:hover,
@@ -192,6 +195,9 @@ span.state a:hover,
 span.state a:focus {
   color: #7D7D7B;
   text-decoration-color: #7D7D7B;
+}
+span.description {
+  font-size: 18px;
 }
 
 .line-separator{
