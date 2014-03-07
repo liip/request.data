@@ -7,6 +7,7 @@ from django.conf import settings
 class User(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
+    blocked = models.BooleanField(default=False)
     def __unicode__(self):
         return self.name
     
