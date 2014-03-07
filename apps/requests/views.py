@@ -14,7 +14,7 @@ from django.utils import formats
 from django.core.mail import send_mail, mail_admins
 from datetime import datetime
 
-def home(request):
+def index(request):
     c = {}
     c['request_form'] = RequestForm()
     c['agency_form'] = AgencyForm()
@@ -46,7 +46,7 @@ def home(request):
         else:
             return HttpResponseRedirect('/', c)
     else:
-        return render(request, "requests/home.html", c)
+        return render(request, "requests/index.html", c)
 
 def request_detail(request, request_id):
     return render(request, "requests/request_detail.html", {"req": go4(Request, id=request_id)})

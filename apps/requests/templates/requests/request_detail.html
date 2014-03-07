@@ -3,13 +3,58 @@
 {% block title %}{{req.title}}{% endblock %}
 
 {% block content %}
-    <h1>{{req.title}}</h1>
-    <div class="comments">
-        {{req.description}}
-        {% for c in req.comments.all %}
-            <div class="comment">
-                {{c.description}}
-            </div>
-        {% endfor %}
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Open data.<br>State your request!</h1>
+        </div>
+        <div class="col-md-6">
+        <a href="{% url "apps.requests.views.index" %}" class="btn-text"><button type="button" class="btn btn-primary btn-block">
+            CREATE REQUEST
+        </button></a>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="container container-main">
+    <div class="row">
+      <div class="col-md-12">
+        <span class="title">{{ req.title }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <span class="helper_text">created by </span>
+          <span class="creator">{{ req.creator.name }}</span>
+          <span class="helper_text"> at </span>
+          <span class="created">{{ req.created }}</span>
+        </div>
+        <div>
+          <span class="helper_text">assigned to </span>
+          <span class="agency">{{ req.agency.a_name }}</span>
+        </div>
+        <div>
+          <a href="{% url "apps.requests.views.request_list" req.state %}"><span class="batch batch-{{ req.state }}"></span><span class="state {{ req.state }}">{{ req.state }}</span></a>
+        </div>
+        <div>
+          <span class="description">{{req.description}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="line-separator"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <span class="title">Comments</span>
+      </div>
+      <div class="col-md-12">
+        {% for c in req.comments.all %}
+          <div>
+            <span class="comment">{{c.description}}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 {% endblock %}

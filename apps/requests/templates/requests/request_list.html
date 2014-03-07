@@ -1,16 +1,61 @@
 {% extends "requests/base.html" %}
 
-{% block title %}{{state}} requests{% endblock %}s
+{% load bootstrap3 %}
+
+{% block title %}{{state|title}} requests{% endblock %}
 
 {% block content %}
-    <h1>{{state}} requests</h1>
-    <div>
-        {% if requests %}
-            {% for r in requests %}
-                <div>{{r.title}}</div>
-            {% endfor %}
-        {% else %}
-            No matching requests.
-        {% endif %}
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Open data.<br>State your request!</h1>
+        </div>
+        <div class="col-md-6">
+        <a href="{% url "apps.requests.views.index" %}" class="btn-text"><button type="button" class="btn btn-primary btn-block">
+            CREATE REQUEST
+        </button></a>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="container container-main">
+    <div class="row">
+      <div class="col-md-12">
+        <span class="title">{{state}} Requests</span>
+      </div>
+    </div>
+    <div class="line-separator"></div>
+    {% if requests %}
+        {% for r in requests %}
+          <div class="row">
+            <div class="col-md-10">
+              <div class="request_title">
+                <a href="{% url "apps.requests.views.request_detail" r.id %}"><span class="request_title">{{ r.title }}</span></a>
+              </div>
+              <div class="request_creation">
+                <span class="helper_text">created by </span>
+                <span class="creator">{{ r.creator.name }}</span>
+                <span class="helper_text"> at </span>
+                <span class="created">{{ r.created }}</span>
+              </div>
+              <div class="request_assigned">
+                <span class="helper_text">assigned to </span>
+                <span class="agency">{{ r.agency.a_name }}</span>
+              </div> 
+            </div>
+            <div class="col-md-2 state">
+              <a href="{% url "apps.requests.views.request_list" r.state %}"><span class="batch batch-{{ r.state }}"></span><span class="state {{ r.state }}">{{ r.state }}</span></a>
+            </div>
+          </div>
+          <div class="line-separator"></div>
+        {% endfor %}
+    {% else %}
+      <div class="row">
+        <div class="col-md-12">
+          <p>No matching requests.</p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
