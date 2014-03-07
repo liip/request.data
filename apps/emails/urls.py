@@ -3,4 +3,4 @@ from apps.emails import views
 
 
 urlpatterns = patterns('',
-  url(r'([a-z0-9]+)/?$', 'apps.emails.views.email_create'),)
+  url(r'([a-zA-Z0-9]+)/?$', 'apps.emails.views.email_create'),)
