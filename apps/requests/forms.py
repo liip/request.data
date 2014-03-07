@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from apps.requests.models import Request, User, Agency
+from apps.requests.models import Request, User, Agency, Comment
 
 class RequestForm(ModelForm):
     description = forms.CharField(max_length=5000, widget=forms.Textarea(attrs={'placeholder': 'Describe your request in a few sentences.'}))
@@ -19,8 +19,15 @@ class UserForm(ModelForm):
         fields = ['name', 'email']
 
 class AgencyForm(ModelForm):
-    a_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Which agency are you asking? (If not found in dropdown.)'}), blank=True)
+    a_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Which agency are you asking? (If not found in dropdown.)'}))
 
     class Meta:
         model = Agency
         fields = ['a_name']
+
+class CommentForm(ModelForm):
+    description = forms.CharField(max_length=5000, widget=forms.Textarea())
+    
+    class Meta:
+        model = Comment
+        fields = ['description']
