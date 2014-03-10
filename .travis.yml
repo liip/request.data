@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - '2.7'
+
+install: 
+  - pip install -r requirements.txt
+  - npm install -g casperjs
+
+script: ./test.sh
+
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  api_key:
+    secure: dXd4p/6phPPpKed1sf/s2P++MLkLZgF+NyzNjcmoZRB+GFdSyDhtPqO08e40JGVL+pbdlGyto1U66BAF0aOFux9XxPYCeZ6l3KzqzWOso0hWnHfwrGWNS11/IkPimYMdvRO8D+2YcEquVpeRX+mhum9TRoUdlWcLbTF0v1yulek=
+  app:
+    master: request-data-dev
+  on:
+    repo: liip/request.data
+    python: '2.7'
