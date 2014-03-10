@@ -8,6 +8,21 @@ In order to run the commands below you need to have [vagrant](http://www.vagrant
     cd request.data/
     vagrant up
 
+## Temp fix for crash on starting up the vagrant box
+
+After it crashes, ssh-into the box and run `curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python`
+
+Then run `pip install -r requirements.txt` again
+
+Exit
+
+Do `vagrant provision` again, that should fix it. …best to start with a fresh box though
+
+
+As soon as all the dependencies are installed you can ssh into the virtualmachine and run the application
+
+    vagrant ssh
+    foreman start
 
 As soon as all the dependencies are installed you can ssh into the virtualmachine and run the application
 
