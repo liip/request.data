@@ -6,6 +6,10 @@ python:
 install: 
   - pip install -r requirements.txt
   - npm install -g casperjs
+  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+before_script:
+    - foreman start &
 
 script: ./test.sh
 
