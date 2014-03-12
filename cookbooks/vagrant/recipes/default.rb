@@ -53,6 +53,9 @@ bash "install pip requirements" do
   user USER
   code <<-EOH
   source #{HOME}/default/bin/activate
+  curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python
+  deactivate
+  source #{HOME}/default/bin/activate
   pip install -r #{VAGRANT_DIR}/requirements.txt
   EOH
 end
