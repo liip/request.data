@@ -1,6 +1,6 @@
 import json
 import re
-import logging
+from django.utils.log import getLogger
 from django.shortcuts import render_to_response, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.context_processors import csrf
@@ -12,13 +12,10 @@ from django.core.mail import send_mail, mail_admins
 from datetime import datetime
 
 from apps.requests.models import User, Request, Comment
-
+logger = getLogger('emails')
 
 @csrf_exempt
 def email_create(request, api_key):
-    # Get an instance of a logger
-    logger = logging.getLogger('email_create')
-
     if request.method == 'POST':
         try:
             json_data = json.loads(request.body)
