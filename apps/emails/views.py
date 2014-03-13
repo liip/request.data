@@ -77,6 +77,7 @@ def email_create(request, api_key):
             return HttpResponse('thanks')
 
         except:
+            logger.error('JSON is unexpected: ' + request.body)
             return HttpResponse(json.dumps({'message': 'invalid json'}))
     else:
         logger.debug('Received a GET request on the email hook address')
