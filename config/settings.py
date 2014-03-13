@@ -118,16 +118,10 @@ LOGGING = {
             'formatter': 'verbose',
             'stream': sys.stdout,
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'mysite.log',
-            'formatter': 'verbose'
-        },
     },
     'loggers': {
         'django': {
-            'handlers':['file'],
+            'handlers':['console'],
             'propagate': True,
             'level':'DEBUG',
         },
