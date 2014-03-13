@@ -2,7 +2,9 @@ from django.conf.urls import patterns, include, url
 from config import settings
 from apps.requests import urls as request_urls
 from apps.pages import urls as page_urls
-from apps.emails import urls as email_urls
+
+import apps.emails.receivers
+from djrill import urls as djrill_urls
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -25,4 +27,5 @@ if settings.DEBUG:
 urlpatterns += patterns('',
   url(r'^', include(request_urls)),
   url(r'^pages/', include(page_urls)),
-  url(r'^emails/', include(email_urls)),)
+  url(r'^emails/', include(djrill_urls)),
+  )

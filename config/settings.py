@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'djrill',
 
     # our apps
     'apps.requests',
@@ -145,3 +146,9 @@ LOGGING = {
         },
     },
 }
+
+MANDRILL_API_KEY = os.getenv('MANDRILL_APIKEY', 'the api key')
+DJRILL_WEBHOOK_SECRET = os.getenv('DJRILL_WEBHOOK_SECRET', 'the webhook api key')
+print DJRILL_WEBHOOK_SECRET
+DJRILL_WEBHOOK_SECRET_NAME = os.getenv('DJRILL_WEBHOOK_SECRET_NAME', 'the webhook api key secret name')
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
