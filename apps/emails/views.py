@@ -18,14 +18,13 @@ logger = getLogger('emails')
 def email_create(request, api_key):
     if request.method == 'POST':
         try:
+            logger.info('Got a POST from Mandrill')
             json_data = json.loads(request.body)
             events = json.loads(json_data['mandrill_events'])
-            logger.info('Got POST from Mandrill')
 
             for event in events:
                 sender_email = event['msg']['from_email']
                 to_emails = event['msg']['to']
-                logger.info('parsing email from ' + sender_email)
 
                 # find the request entry to extract the request-id from
                 request_id = None
@@ -35,7 +34,7 @@ def email_create(request, api_key):
                         request_id = re.search(re_str, email[0]).group(1)
                         break
 
-                logger.info('parsing email from ' + sender_email + ' for request ' + request_id)
+                logger.info('Parsing email from ' + sender_email + ' for request ' + request_id)
 
                 user = User.objects.get(email=sender_email)
 
@@ -50,6 +49,8 @@ def email_create(request, api_key):
 
                     for comment in request.comments.all():
                         descriptions.extend([comment.description])
+                        
+                    logger.debug('Got ' + str(len(descriptions)) + ' descriptions for that request')
 
                     # split the email based on previously entered comments
                     # go through whole email and split it with already entered comments
@@ -62,7 +63,13 @@ def email_create(request, api_key):
                                 description=desc_split[0],
                                 creator=user,
                                 request=request)
+                            logger.info('Saving a comment from ' + sender_email + ' to the database')
                             c.save()
+                            break
+
+                        # if first element is an empty string it means that the comment is already there, possibly because the email has been mistakenly resent.
+                        elif (len(desc_split) == 2) and (len(desc_split[0]) == 0):
+                            logger.info('Comment is already in the system, therefore don\'t add again')
                             break
                 else:
                     logger.info('User ' + sender_email + ' is blacklisted, stop processing further')
@@ -72,4 +79,5 @@ def email_create(request, api_key):
         except:
             return HttpResponse(json.dumps({'message': 'invalid json'}))
     else:
+        logger.debug('Received a GET request on the email hook address')
         return HttpResponse(api_key)
