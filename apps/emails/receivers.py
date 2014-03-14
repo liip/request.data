@@ -87,17 +87,28 @@ def handle_sending_notifications(sender, request, comment, creator, **kwargs):
     email_addresses.add(request.agency.email)
 
     # Remove the email address of the person writing that comment
-    email_addresses.discard(creator.email)
-    logger.info(len(email_addresses))
+    # If it's a notification on a request don't do that.
+    if comment != None:
+        email_addresses.discard(creator.email)
 
     # Send the notifications to the people involved
+    if comment == None:
+        subject = '[request.opendata.ch] Request: ' + request.title
+        body = request.description
+    else:
+        subject = '[request.opendata.ch] Comment: ' + request.title
+        body = comment.description
+
     for address in email_addresses:
         msg = EmailMultiAlternatives(
-            subject = '[request.opendata.ch] Comment',
-            body = comment.description,
+            subject = subject,
+            body = body,
             from_email = 'request.opendata.ch <do-not-reply@opendata.ch>',
             to = [address],
             headers = {'Reply-To': 'request+' + str(request.id) + '@opendata.ch'})
         msg.send()
 
-    logger.info('Sent all notifications for comment: ' + str(comment.id))
+    if comment == None:
+        logger.info('Sent all notifications for request: ' + str(request.id))
+    else:
+        logger.info('Sent all notifications for comment: ' + str(comment.id))

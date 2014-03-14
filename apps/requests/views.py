@@ -7,12 +7,17 @@ from apps.requests.forms import *
 import requests
 from django.conf import settings
 
+from django.utils.log import getLogger
+logger = getLogger('requests')
+
 import json
 from django.utils.html import escape
 from django.core.context_processors import csrf
 from django.utils import formats
 from django.core.mail import send_mail, mail_admins
 from datetime import datetime
+
+from apps.emails.signals import notify_event
 
 def index(request):
     c = {}
@@ -22,16 +27,29 @@ def index(request):
     c["requests"] = list(Request.objects.order_by('-created'))
     
     if request.method == 'POST':
+        logger.debug('Got a POST request to create a new data request')
         request_form = RequestForm(request.POST)
         agency_form = AgencyForm(request.POST)
         user_form = UserForm(request.POST)
 
-        if request_form.is_valid() and agency_form.is_valid() and user_form.is_valid():
+        logger.debug('request_form is valid: ' + str(request_form.is_valid()))
+        logger.debug('agency_form is valid: ' + str(agency_form.is_valid()))
+        logger.debug('user_form is valid: ' + str(user_form.is_valid()))
+
+        if request_form.is_valid():
+            logger.debug('The request data is valid')
+
+            # Linking the creator to the request
             new_request = request_form.save(commit=False)
             try:
                 new_request.creator = User.objects.get(email=user_form.cleaned_data['email'])
             except User.DoesNotExist:
-                new_request.creator = user_form.save()
+                if user_form.is_valid():
+                    new_request.creator = user_form.save()
+                else:
+                    return HttpResponseRedirect('/', c)
+
+            # Linking the agency to the request
             new_request = request_form.save(commit=False)
             if not new_request.agency:
                 new_agency = agency_form.save(commit=False)
@@ -39,8 +57,15 @@ def index(request):
                 new_agency.save()
                 agency_form.save_m2m()
                 new_request.agency = new_agency
+
+            # Fully saving the request into the database
             new_request.save()
             request_form.save_m2m()
+            logger.debug('Request: ' + str(new_request.id) + ' saved')
+
+            # Notify the agency and the user that the request has been received.
+            notify_event.send(sender=request, request=new_request, comment=None, creator=new_request.creator)
+
             c['req'] = new_request
             return HttpResponseRedirect('requests/' + str(new_request.id), c)
         else:

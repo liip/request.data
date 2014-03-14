@@ -129,6 +129,10 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
+        'requests': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
     },
     'formatters': {
         'verbose': {

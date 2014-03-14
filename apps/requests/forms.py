@@ -15,9 +15,14 @@ class UserForm(ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Your name'}))
     email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Your email address'}))
 
+    def clean(self):
+        form_data = self.cleaned_data
+        return form_data
+
     class Meta:
         model = User
         fields = ['name', 'email']
+        exclude = ['blocked']
 
 class AgencyForm(ModelForm):
     a_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Or specify another agency'}))
