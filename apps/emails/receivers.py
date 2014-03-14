@@ -3,7 +3,9 @@ import re
 
 from django.utils.log import getLogger
 from djrill.signals import webhook_event
+from apps.emails.signals import notify_event
 from django.dispatch import receiver
+from django.core.mail import EmailMultiAlternatives
 
 from apps.requests.models import User, Request, Comment
 logger = getLogger('emails')
@@ -65,6 +67,7 @@ def handle_inbound(sender, event_type, data, **kwargs):
                         request=request)
                     logger.info('Saving a comment from ' + sender_email + ' to the database')
                     c.save()
+                    notify_event.send(sender=sender, request=request, comment=c, creator=user)
                     break
 
                 # if first element is an empty string it means that the comment is already there, possibly because the email has been mistakenly resent.
@@ -73,3 +76,28 @@ def handle_inbound(sender, event_type, data, **kwargs):
                     break
         else:
             logger.info('User ' + sender_email + ' is blacklisted, stop processing further')
+
+@receiver(notify_event)
+def handle_sending_notifications(sender, request, comment, creator, **kwargs):
+    # Retrieve all the email addresses this comment needs to be sent to.
+    email_addresses = set()
+    email_addresses.add(request.creator.email)
+    for comment in request.comments.all():
+        email_addresses.add(comment.creator.email)
+    email_addresses.add(request.agency.email)
+
+    # Remove the email address of the person writing that comment
+    email_addresses.discard(creator.email)
+    logger.info(len(email_addresses))
+
+    # Send the notifications to the people involved
+    for address in email_addresses:
+        msg = EmailMultiAlternatives(
+            subject = '[request.opendata.ch] Comment',
+            body = comment.description,
+            from_email = 'request.opendata.ch <do-not-reply@opendata.ch>',
+            to = [address],
+            headers = {'Reply-To': 'request+' + str(request.id) + '@opendata.ch'})
+        msg.send()
+
+    logger.info('Sent all notifications for comment: ' + str(comment.id))
