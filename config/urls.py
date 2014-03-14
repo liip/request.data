@@ -6,8 +6,12 @@ from apps.pages import urls as page_urls
 import apps.emails.receivers
 from djrill import urls as djrill_urls
 
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
+# To see some Mandrill stats in the Admin Interface
+from djrill import DjrillAdminSite
+admin.site = DjrillAdminSite()
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
