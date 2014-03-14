@@ -60,6 +60,8 @@ def handle_inbound(sender, event_type, data, **kwargs):
             # in case the latest comment is not able to split, try with the second latest, etc.
             for description in reversed(descriptions):
                 desc_split = data['msg']['text'].split(description, 1)
+                logger.debug('split part 1: ' + desc_split[0])
+                logger.debug('split part 2: ' + desc_split[1])
                 if (len(desc_split) == 2) and (len(desc_split[0]) > 0):
                     c = Comment(
                         description=desc_split[0],
