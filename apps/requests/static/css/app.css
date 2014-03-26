@@ -23,10 +23,11 @@ body {
 }
 
 .batch {
-  font-family:"Batch"; 
+  font-family:"Batch";
   font-size:32px;
   line-height:1;
   display:inline-block;
+  vertical-align: middle;
 }
 .batch-pending:before {
   content:"\F090";
@@ -69,8 +70,8 @@ body {
 .form-group input::-moz-placeholder,
 .form-group textarea::-moz-placeholder,
 .form-group input:-ms-input-placeholder,
-.form-group textarea:-ms-input-placeholder {  
-   color: #FFFFFF;  
+.form-group textarea:-ms-input-placeholder {
+   color: #FFFFFF;
 }
 
 .btn-primary {
