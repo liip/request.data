@@ -15,9 +15,6 @@
           <form role="form" method="post" class="form">
               {% csrf_token %}
               {% bootstrap_form request_form %}
-              <div class="dropdown">
-                  {% bootstrap_form agency_form %}
-              </div>
               {% bootstrap_form user_form %}
               {% buttons %}
                   <button type="submit" class="btn btn-primary btn-block">
