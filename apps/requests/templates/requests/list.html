@@ -44,7 +44,7 @@
             </div>
             <div class="request_assigned">
               <span class="helper_text">assigned to </span>
-              <span class="agency"><a href="{% url "apps.requests.views.agency_list" r.agency.a_name %}">{{ r.agency.a_name }}</a></span>
+              <a href="{% url "apps.requests.views.agency_list" r.agency.a_name %}"><span class="agency">{{ r.agency.a_name }}</span></a>
             </div>
           </div>
           <div class="col-md-2 state">
