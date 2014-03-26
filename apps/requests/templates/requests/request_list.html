@@ -34,15 +34,12 @@
                 <a href="{% url "apps.requests.views.request_detail" r.id %}"><span class="request_title">{{ r.title }}</span></a>
               </div>
               <div class="request_creation">
-                <span class="helper_text">created by </span>
-                <span class="creator">{{ r.creator.name }}</span>
-                <span class="helper_text"> at </span>
-                <span class="created">{{ r.created }}</span>
+                <span class="helper_text">created by {{ r.creator.name }} at {{ r.created }}</span>
               </div>
               <div class="request_assigned">
                 <span class="helper_text">assigned to </span>
-                <span class="agency">{{ r.agency.a_name }}</span>
-              </div> 
+                <span class="agency"><a href="{% url "apps.requests.views.agency_list" r.agency.a_name %}">{{ r.agency.a_name }}</a></span>
+              </div>
             </div>
             <div class="col-md-2 state">
               <a href="{% url "apps.requests.views.request_list" r.state %}"><span class="batch batch-{{ r.state }}"></span><span class="state {{ r.state }}">{{ r.state }}</span></a>

@@ -25,7 +25,7 @@ def index(request):
     c['agency_form'] = AgencyForm()
     c['user_form'] = UserForm()
     c["requests"] = list(Request.objects.order_by('-created'))
-    
+
     if request.method == 'POST':
         logger.debug('Got a POST request to create a new data request')
         request_form = RequestForm(request.POST)
@@ -85,3 +85,10 @@ def request_list(request, state):
         c["state"] = state
         c["requests"] = list(Request.objects.order_by('-created').filter(state=state))
     return render_to_response('requests/request_list.html', c)
+
+def agency_list(request, agency_name):
+    c = {}
+    agency = go4(Agency, a_name=agency_name)
+    c["agency"] = agency
+    c["requests"] = list(Request.objects.order_by('-created').filter(agency=agency))
+    return render_to_response('requests/agency_list.html', c)
