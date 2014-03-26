@@ -9,6 +9,7 @@ body {
 
 .container-main {
   background-color: #FFF;
+  padding-top: 30px;
 }
 
 @font-face{
@@ -138,7 +139,7 @@ a.btn-text:focus {
 
 .jumbotron {
   padding: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   color: #FFFFFF;
   background-color: #e61414;
 }
@@ -155,8 +156,8 @@ a.btn-text:focus {
 
 span.title {
   font-size: 30px;
-  text-transform: capitalize;
-  padding: 40px 0 40px 0px;
+  text-transform: capitalize
+  padding-bottom: 40px;
 }
 span.request_title {
   font-size: 24px;
