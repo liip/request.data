@@ -53,29 +53,34 @@ def handle_inbound(sender, event_type, data, **kwargs):
                 descriptions.extend([comment.description])
 
             logger.debug('Got ' + str(len(descriptions)) + ' descriptions for that request')
+            email_text = data['msg']['text']
 
-            # split the email based on previously entered comments
-            # go through whole email and split it with already entered comments
-            # if the latest comment split the email then the first part must be the new comment
-            # in case the latest comment is not able to split, try with the second latest, etc.
-            for description in reversed(descriptions):
-                desc_split = data['msg']['text'].split(description, 1)
-                logger.debug('split part 1: ' + desc_split[0])
-                logger.debug('split part 2: ' + desc_split[1])
-                if (len(desc_split) == 2) and (len(desc_split[0]) > 0):
+            # run a findall regex against the email
+            matches = re.findall(r'On\s[0-9a-zA-Z\-\:\s]+\,\srequest.opendata.ch\s\wrote\:', email_text)
+            if matches and len(matches) >= 1:
+
+                # use the first occurrence as the split string
+                splitted_email_text = email_text.split(matches[0], 1)
+
+                logger.debug('split part 1: ' + splitted_email_text[0])
+                logger.debug('split part 2: ' + splitted_email_text[1])
+                
+                if len(splitted_email_text) == 2 and len(splitted_email_text[0]) > 0:
                     c = Comment(
-                        description=desc_split[0],
+                        description=splitted_email_text[0],
                         creator=user,
                         request=request)
-                    logger.info('Saving a comment from ' + sender_email + ' to the database')
-                    c.save()
-                    notify_event.send(sender=sender, request=request, comment=c, creator=user)
+                        logger.info('Saving a comment from ' + sender_email + ' to the database')
+                        c.save()
+                        notify_event.send(sender=sender, request=request, comment=c, creator=user)
+                        break
+                else:
+                    logger.info('Comment could')
+                    logger.info('E-Mail: ' + email_text)
                     break
-
-                # if first element is an empty string it means that the comment is already there, possibly because the email has been mistakenly resent.
-                elif (len(desc_split) == 2) and (len(desc_split[0]) == 0):
-                    logger.info('Comment is already in the system, therefore don\'t add again')
-                    break
+            else:
+                logger.info('E-Mail by user ' + sender_email + ' is not matchable.')
+                logger.info('E-Mail: ' + email_text)
         else:
             logger.info('User ' + sender_email + ' is blacklisted, stop processing further')
 
