@@ -83,11 +83,17 @@ body {
 }
 
 .form-group input::-webkit-input-placeholder,
-.form-group textarea::-webkit-input-placeholder,
+.form-group textarea::-webkit-input-placeholder {
+   color: #FFFFFF;
+}
 .form-group input:-moz-placeholder,
-.form-group textarea:-moz-placeholder,
+.form-group textarea:-moz-placeholder {
+   color: #FFFFFF;
+}
 .form-group input::-moz-placeholder,
-.form-group textarea::-moz-placeholder,
+.form-group textarea::-moz-placeholder {
+   color: #FFFFFF;
+}
 .form-group input:-ms-input-placeholder,
 .form-group textarea:-ms-input-placeholder {
    color: #FFFFFF;
