@@ -210,6 +210,14 @@ span.agency a:focus {
 }
 span.creator, span.created, span.agency, span.helper_text {
   font-size: 12px;
+  line-height: 1.5em;
+}
+
+.detail-details span.creator,
+.detail-details span.created,
+.detail-details span.agency,
+.detail-details span.helper_text {
+  font-size: 18px;
 }
 span.helper_text {
   color: #B0B0AD;
@@ -233,6 +241,15 @@ span.state a:focus {
 }
 span.description {
   font-size: 18px;
+}
+
+.request_creation,
+.request_assigned,
+.request_state {
+  padding-top: 5px;
+}
+.request_description {
+  padding-top: 15px;
 }
 
 .line-separator{
