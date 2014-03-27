@@ -2,7 +2,7 @@
 
 {% block title %}{{req.title}}{% endblock %}
 
-{% block content %}
+{% block jumbotron %}
   <div class="jumbotron">
     <div class="container">
       <div class="row">
@@ -17,7 +17,9 @@
       </div>
     </div>
   </div>
-  <div class="container container-main">
+{% endblock %}
+
+{% block content %}
     <div class="row">
       <div class="col-md-12">
         <span class="title">{{ req.title }}</span>
@@ -53,5 +55,4 @@
         {% endfor %}
       </div>
     </div>
-  </div>
 {% endblock %}
