@@ -22,9 +22,9 @@ from apps.emails.signals import notify_event
 def index(request):
     c = {}
     c['request_form'] = RequestForm()
-    #c['agency_form'] = AgencyForm()
+    # c['agency_form'] = AgencyForm()
     c['user_form'] = UserForm()
-    c["requests"] = list(Request.objects.order_by('-created'))
+    c['requests'] = list(Request.objects.order_by('-created'))
 
     if request.method == 'POST':
         logger.debug('Got a POST request to create a new data request')
@@ -62,6 +62,10 @@ def index(request):
             new_request.save()
             request_form.save_m2m()
             logger.debug('Request: ' + str(new_request.id) + ' saved')
+
+            # Add the creator as a user of the request
+            new_request.users.add(new_request.creator)
+            logger.debug([user.name for user in new_request.users.all()])
 
             # Notify the agency and the user that the request has been received.
             notify_event.send(sender=request, request=new_request, comment=None, creator=new_request.creator)
