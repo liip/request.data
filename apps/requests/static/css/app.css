@@ -9,6 +9,7 @@ body {
 
 .container-main {
   background-color: #FFF;
+  padding-top: 30px;
 }
 
 @font-face{
@@ -22,11 +23,30 @@ body {
   font-style:normal;
 }
 
+@font-face{
+  font-family:M3MonoRegular;
+  src:url('../fonts/m3monoregular-webfont.eot');
+  src:url('../fonts/m3monoregular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/m3monoregular-webfont.woff') format('woff'),
+    url('../fonts/m3monoregular-webfont.ttf') format('truetype'),
+    url('../fonts/m3monoregular-webfont.svg#M3MonoRegular') format('svg');
+}
+
+@font-face{
+  font-family:M3MonoBold;
+  src:url('../fonts/m3monobold-webfont.eot');
+  src:url('../fonts/m3monobold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/m3monobold-webfont.woff') format('woff'),
+    url('../fonts/m3monobold-webfont.ttf') format('truetype'),
+    url('../fonts/m3monobold-webfont.svg#M3MonoBold') format('svg');
+}
+
 .batch {
-  font-family:"Batch"; 
+  font-family:"Batch";
   font-size:32px;
   line-height:1;
   display:inline-block;
+  vertical-align: middle;
 }
 .batch-pending:before {
   content:"\F090";
@@ -69,8 +89,8 @@ body {
 .form-group input::-moz-placeholder,
 .form-group textarea::-moz-placeholder,
 .form-group input:-ms-input-placeholder,
-.form-group textarea:-ms-input-placeholder {  
-   color: #FFFFFF;  
+.form-group textarea:-ms-input-placeholder {
+   color: #FFFFFF;
 }
 
 .btn-primary {
@@ -102,6 +122,12 @@ a.btn-text:focus {
 }
 .navbar-default .navbar-brand {
   color: #444444;
+}
+.navbar-brand {
+  font-size: 30px;
+  height: 60px;
+  vertical-align: middle;
+  font-family: M3MonoRegular;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -137,7 +163,7 @@ a.btn-text:focus {
 
 .jumbotron {
   padding: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   color: #FFFFFF;
   background-color: #e61414;
 }
@@ -154,8 +180,8 @@ a.btn-text:focus {
 
 span.title {
   font-size: 30px;
-  text-transform: capitalize;
-  padding: 40px 0 40px 0px;
+  text-transform: capitalize
+  padding-bottom: 40px;
 }
 span.request_title {
   font-size: 24px;
@@ -204,4 +230,63 @@ span.description {
 margin: 0px 0 15px 0;
 border-bottom: 1px solid #EFEFEF;
 padding: 0px 0 20px 0;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  background-color: #fff;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -60px;
+}
+
+/* Make wrapper the same width as container */
+#wrap {
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  #wrap {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  #wrap {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  #wrap {
+    width: 970px;
+  }
+}
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+  height: 60px;
+}
+#footer {
+  #padding-top: 20px;
+  background-color: #fff;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+  #footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

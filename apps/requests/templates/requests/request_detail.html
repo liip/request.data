@@ -2,7 +2,7 @@
 
 {% block title %}{{req.title}}{% endblock %}
 
-{% block content %}
+{% block jumbotron %}
   <div class="jumbotron">
     <div class="container">
       <div class="row">
@@ -17,7 +17,9 @@
       </div>
     </div>
   </div>
-  <div class="container container-main">
+{% endblock %}
+
+{% block content %}
     <div class="row">
       <div class="col-md-12">
         <span class="title">{{ req.title }}</span>
@@ -25,15 +27,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div>
-          <span class="helper_text">created by </span>
-          <span class="creator">{{ req.creator.name }}</span>
-          <span class="helper_text"> at </span>
-          <span class="created">{{ req.created }}</span>
+        <div class="request_creation">
+          <span class="helper_text">created by {{ req.creator.name }} at {{ req.created }}</span>
         </div>
-        <div>
+        <div class="request_assigned">
           <span class="helper_text">assigned to </span>
-          <span class="agency">{{ req.agency.a_name }}</span>
+          <a href="{% url "apps.requests.views.agency_list" req.agency.a_name %}"><span class="agency">{{ req.agency.a_name }}</span>
         </div>
         <div>
           <a href="{% url "apps.requests.views.request_list" req.state %}"><span class="batch batch-{{ req.state }}"></span><span class="state {{ req.state }}">{{ req.state }}</span></a>
@@ -56,5 +55,4 @@
         {% endfor %}
       </div>
     </div>
-  </div>
 {% endblock %}

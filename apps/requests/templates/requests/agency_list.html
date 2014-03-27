@@ -2,12 +2,12 @@
 
 {% load bootstrap3 %}
 
-{% block title %}{{state|title}} requests{% endblock %}
+{% block title %}Requests made to {{agency.a_name}}{% endblock %}
 
 {% block page_title %}
   <div class="row">
     <div class="col-md-12">
-      <span class="title">{{state}} requests</span>
+      <span class="title">Requests made to {{agency.a_name}}</span>
     </div>
   </div>
 {% endblock %}
