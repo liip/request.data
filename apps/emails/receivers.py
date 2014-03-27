@@ -70,14 +70,12 @@ def handle_inbound(sender, event_type, data, **kwargs):
                         description=splitted_email_text[0],
                         creator=user,
                         request=request)
-                        logger.info('Saving a comment from ' + sender_email + ' to the database')
-                        c.save()
-                        notify_event.send(sender=sender, request=request, comment=c, creator=user)
-                        break
+                    logger.info('Saving a comment from ' + sender_email + ' to the database')
+                    c.save()
+                    notify_event.send(sender=sender, request=request, comment=c, creator=user)
                 else:
                     logger.info('Comment could')
                     logger.info('E-Mail: ' + email_text)
-                    break
             else:
                 logger.info('E-Mail by user ' + sender_email + ' is not matchable.')
                 logger.info('E-Mail: ' + email_text)
