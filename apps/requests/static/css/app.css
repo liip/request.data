@@ -83,11 +83,17 @@ body {
 }
 
 .form-group input::-webkit-input-placeholder,
-.form-group textarea::-webkit-input-placeholder,
+.form-group textarea::-webkit-input-placeholder {
+   color: #FFFFFF;
+}
 .form-group input:-moz-placeholder,
-.form-group textarea:-moz-placeholder,
+.form-group textarea:-moz-placeholder {
+   color: #FFFFFF;
+}
 .form-group input::-moz-placeholder,
-.form-group textarea::-moz-placeholder,
+.form-group textarea::-moz-placeholder {
+   color: #FFFFFF;
+}
 .form-group input:-ms-input-placeholder,
 .form-group textarea:-ms-input-placeholder {
    color: #FFFFFF;
@@ -138,11 +144,11 @@ a.btn-text:focus {
   color: #444444;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #4444444;
+  color: #444444;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #4444444;
+  color: #444444;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
@@ -180,7 +186,7 @@ a.btn-text:focus {
 
 span.title {
   font-size: 30px;
-  text-transform: capitalize
+  text-transform: capitalize;
   padding-bottom: 40px;
 }
 span.request_title {
@@ -200,9 +206,18 @@ span.agency a:hover,
 span.agency a:focus {
   color: #444;
   text-decoration-color: #444;
+  -moz-text-decoration-color: #444;
 }
 span.creator, span.created, span.agency, span.helper_text {
   font-size: 12px;
+  line-height: 1.5em;
+}
+
+.detail-details span.creator,
+.detail-details span.created,
+.detail-details span.agency,
+.detail-details span.helper_text {
+  font-size: 18px;
 }
 span.helper_text {
   color: #B0B0AD;
@@ -211,6 +226,7 @@ span.helper_text a:hover,
 span.helper_text a:focus {
   color: #B0B0AD;
   text-decoration-color: #B0B0AD;
+  -moz-text-decoration-color: #B0B0AD;
 }
 span.state {
   text-transform: uppercase;
@@ -221,9 +237,19 @@ span.state a:hover,
 span.state a:focus {
   color: #7D7D7B;
   text-decoration-color: #7D7D7B;
+  -moz-text-decoration-color: #7D7D7B;
 }
 span.description {
   font-size: 18px;
+}
+
+.request_creation,
+.request_assigned,
+.request_state {
+  padding-top: 5px;
+}
+.request_description {
+  padding-top: 15px;
 }
 
 .line-separator{
@@ -277,7 +303,6 @@ body {
   height: 60px;
 }
 #footer {
-  #padding-top: 20px;
   background-color: #fff;
 }
 

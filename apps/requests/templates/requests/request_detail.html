@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 detail-details">
         <div class="request_creation">
           <span class="helper_text">created by {{ req.creator.name }} at {{ req.created }}</span>
         </div>
@@ -34,10 +34,14 @@
           <span class="helper_text">assigned to </span>
           <a href="{% url "apps.requests.views.agency_list" req.agency.a_name %}"><span class="agency">{{ req.agency.a_name }}</span>
         </div>
-        <div>
+        <div class="request_state">
           <a href="{% url "apps.requests.views.request_list" req.state %}"><span class="batch batch-{{ req.state }}"></span><span class="state {{ req.state }}">{{ req.state }}</span></a>
         </div>
-        <div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="request_description">
           <span class="description">{{req.description}}</span>
         </div>
       </div>
