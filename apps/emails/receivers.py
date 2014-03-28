@@ -55,27 +55,30 @@ def handle_inbound(sender, event_type, data, **kwargs):
             logger.debug('Got ' + str(len(descriptions)) + ' descriptions for that request')
             email_text = data['msg']['text']
 
-            # run a findall regex against the email
-            matches = re.findall(r'On\s[0-9a-zA-Z\-\:\s]+\,\srequest.opendata.ch\s\wrote\:', email_text)
+            # run a findall regex against the previous email
+            matches = re.findall(r'(^>.+)', email_text, re.MULTILINE)
             if matches and len(matches) >= 1:
+                lines = email_text.split('\n')
+                for idx, line in enumerate(lines):
+                    if line == matches[0]:
+                        idx_to_use = idx - 1
+                        if lines[idx - 1] == '':
+                            idx_to_use = idx - 2
 
-                # use the first occurrence as the split string
-                splitted_email_text = email_text.split(matches[0], 1)
+                        comment = ''
+                        for line in lines[0:idx_to_use]:
+                            comment += line
 
-                logger.debug('split part 1: ' + splitted_email_text[0])
-                logger.debug('split part 2: ' + splitted_email_text[1])
-                
-                if len(splitted_email_text) == 2 and len(splitted_email_text[0]) > 0:
-                    c = Comment(
-                        description=splitted_email_text[0],
-                        creator=user,
-                        request=request)
-                    logger.info('Saving a comment from ' + sender_email + ' to the database')
-                    c.save()
-                    notify_event.send(sender=sender, request=request, comment=c, creator=user)
-                else:
-                    logger.info('Comment could')
-                    logger.info('E-Mail: ' + email_text)
+                        # check if the comment is already in the database
+                        # TODO
+
+                        c = Comment(
+                            description = comment,
+                            creator = user,
+                            request = request)
+                        logger.info('Saving a comment from ' + sender_email + ' to the database')
+                        c.save()
+                        notify_event.send(sender=sender, request=request, comment=c, creator=user)
             else:
                 logger.info('E-Mail by user ' + sender_email + ' is not matchable.')
                 logger.info('E-Mail: ' + email_text)
