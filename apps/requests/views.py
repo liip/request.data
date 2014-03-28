@@ -41,13 +41,15 @@ def index(request):
 
             # Linking the creator to the request
             new_request = request_form.save(commit=False)
-            try:
-                new_request.creator = User.objects.get(email=user_form.cleaned_data['email'])
-            except User.DoesNotExist:
-                if user_form.is_valid():
-                    new_request.creator = user_form.save()
-                else:
-                    return HttpResponseRedirect('/', c)
+            if user_form.is_valid():
+                try:
+                    new_request.creator = User.objects.get(email=user_form.cleaned_data['email'])
+                except User.DoesNotExist:
+                    new_user = User(name=user_form.cleaned_data['name'], email=user_form.cleaned_data['email'])
+                    new_user.save()
+                    new_request.creator = new_user
+            else:
+                return HttpResponseRedirect('/', c)
 
             # Linking the agency to the request
             new_request = request_form.save(commit=False)

@@ -6,23 +6,14 @@ class RequestForm(ModelForm):
     description = forms.CharField(max_length=5000, widget=forms.Textarea(attrs={'placeholder': 'Describe your request in a few sentences'}))
     title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'What data would you like to request?'}))
     agency = forms.ModelChoiceField(queryset=Agency.objects.all(), empty_label="Select an agency")
-    
+
     class Meta:
         model = Request
         fields = ['title', 'description', 'agency']
 
-class UserForm(ModelForm):
+class UserForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Your name'}))
-    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Your email address'}))
-
-    def clean(self):
-        form_data = self.cleaned_data
-        return form_data
-
-    class Meta:
-        model = User
-        fields = ['name', 'email']
-        exclude = ['blocked']
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Your email address'}))
 
 class AgencyForm(ModelForm):
     a_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Or specify another agency'}))
@@ -33,7 +24,7 @@ class AgencyForm(ModelForm):
 
 class CommentForm(ModelForm):
     description = forms.CharField(max_length=5000, widget=forms.Textarea())
-    
+
     class Meta:
         model = Comment
         fields = ['description']
