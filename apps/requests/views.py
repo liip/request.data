@@ -52,7 +52,7 @@ def index(request):
                 return HttpResponseRedirect('/', c)
 
             # Linking the agency to the request
-            new_request = request_form.save(commit=False)
+            # new_request = request_form.save(commit=False)
             # if not new_request.agency:
                 # new_agency = agency_form.save(commit=False)
                 # new_agency.email = "unknown@unknown.com"
