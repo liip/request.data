@@ -1,5 +1,6 @@
 {% extends "requests/base.html" %}
 
+{% load bootstrap3 %}
 {% block title %}{{req.title}}{% endblock %}
 
 {% block jumbotron %}
@@ -57,6 +58,18 @@
             <span class="comment">{{c.description}}</span>
           </div>
         {% endfor %}
+      </div>
+      <div class="comment-form">
+          <form role="form" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form comment_form %}
+            {% bootstrap_form user_form %}
+            {% buttons %}
+              <button type="submit" class="btn btn-primary">
+                Submit comment
+              </button>
+            {% endbuttons %}
+          </form>
       </div>
     </div>
 {% endblock %}

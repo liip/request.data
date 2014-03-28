@@ -80,7 +80,35 @@ def index(request):
         return render(request, "requests/index.html", c)
 
 def request_detail(request, request_id):
-    return render(request, "requests/request_detail.html", {"req": go4(Request, id=request_id)})
+    c = {}
+    c['comment_form'] = CommentForm()
+    c['user_form'] = UserForm()
+    c['req'] = go4(Request, id=request_id)
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        user_form = UserForm(request.POST)
+
+        if comment_form.is_valid() and user_form.is_valid():
+            # Save the description to a new comment
+            new_comment = comment_form.save(commit=False)
+
+            # Set the comment's creator to the user, and add user if it doesn't exist
+            try:
+                new_comment.creator = User.objects.get(email=user_form.cleaned_data['email'])
+            except User.DoesNotExist:
+                new_user = User(name=user_form.cleaned_data['name'], email=user_form.cleaned_data['email'])
+                new_user.save()
+                new_comment.creator = new_user
+
+            # Set the comment's request
+            new_comment.request = go4(Request, id=request_id)
+
+            #Save the comment
+            new_comment.save()
+            comment_form.save_m2m()
+
+    return render(request, "requests/request_detail.html", c)
 
 def request_list(request, state):
     c = {}
