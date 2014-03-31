@@ -99,6 +99,31 @@ body {
    color: #FFFFFF;
 }
 
+.comment-form .form-group input,
+.comment-form .form-group textarea,
+.comment-form .form-group select {
+  color: #7D7D7B;
+  font-size: 18px;
+  background-color: #fff;
+  border-color: #B0B0AD;
+}
+.comment-form .form-group input::-webkit-input-placeholder,
+.comment-form .form-group textarea::-webkit-input-placeholder {
+   color: #B0B0AD;
+}
+.comment-form .form-group input:-moz-placeholder,
+.comment-form .form-group textarea:-moz-placeholder {
+   color: #B0B0AD;
+}
+.comment-form .form-group input::-moz-placeholder,
+.comment-form .form-group textarea::-moz-placeholder {
+   color: #B0B0AD;
+}
+.comment-form .form-group input:-ms-input-placeholder,
+.comment-form .form-group textarea:-ms-input-placeholder {
+   color: #B0B0AD;
+}
+
 .btn-primary {
   color: #E61414;
   background-color: #FFFFFF;
@@ -110,9 +135,31 @@ body {
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active {
-  color: #E61414;
-  background-color: #FFFFFF;
+  color: #fff;
+  background-color: #E61414;
   border-color: #FFFFFF;
+  font-size: 18px;
+  font-weight: bold;
+}
+a.btn-text:hover,
+a.btn-text:focus {
+  text-decoration: none;
+}
+
+.comment-form .btn-primary {
+  color: #E6141;
+  background-color: #FFFFFF;
+  border-color: #B0B0AD;
+  font-size: 18px;
+  font-weight: bold;
+}
+.comment-form .btn-primary:hover,
+.comment-form .btn-primary:focus,
+.comment-form .btn-primary:active,
+.comment-form .btn-primary.active {
+  color: #fff;
+  background-color: #E61414;
+  border-color: #fff;
   font-size: 18px;
   font-weight: bold;
 }
@@ -196,6 +243,14 @@ span.request_title {
 span.title, span.request_title, span.creator, span.created, span.agency, span.comment, span.description {
   color: #444;
 }
+span.title a,
+span.request_title a,
+span.creator a,
+span.agency a {
+  color: #444;
+  text-decoration-color: #444;
+  -moz-text-decoration-color: #444;
+}
 span.title a:hover,
 span.title a:focus,
 span.request_title a:hover,
@@ -222,16 +277,26 @@ span.creator, span.created, span.agency, span.helper_text {
 span.helper_text {
   color: #B0B0AD;
 }
+span.helper_text a {
+  color: #444;
+}
 span.helper_text a:hover,
 span.helper_text a:focus {
-  color: #B0B0AD;
-  text-decoration-color: #B0B0AD;
-  -moz-text-decoration-color: #B0B0AD;
+  color: #444;
+  text-decoration-color: #444;
+  -moz-text-decoration-color: #444;
+}
+span.helper_text_bold {
+  color: #444;
+  font-weight: bold;
 }
 span.state {
   text-transform: uppercase;
   color: #7D7D7B;
   font-weight: bold;
+}
+span.state a{
+  color: #7D7D7B;
 }
 span.state a:hover,
 span.state a:focus {

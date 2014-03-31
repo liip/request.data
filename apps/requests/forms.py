@@ -23,7 +23,7 @@ class AgencyForm(ModelForm):
         fields = ['a_name']
 
 class CommentForm(ModelForm):
-    description = forms.CharField(max_length=5000, widget=forms.Textarea())
+    description = forms.CharField(max_length=5000, widget=forms.Textarea(attrs={'placeholder': 'Leave a comment on this request'}))
 
     class Meta:
         model = Comment
