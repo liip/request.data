@@ -81,9 +81,10 @@ def index(request):
 
 def request_detail(request, request_id):
     c = {}
+    req = go4(Request, id=request_id)
     c['comment_form'] = CommentForm()
     c['user_form'] = UserForm()
-    c['req'] = go4(Request, id=request_id)
+    c['req'] = req
 
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -102,7 +103,10 @@ def request_detail(request, request_id):
                 new_comment.creator = new_user
 
             # Set the comment's request
-            new_comment.request = go4(Request, id=request_id)
+            new_comment.request = req
+
+            # Add the commenter to the users of the request
+            req.users.add(new_comment.creator)
 
             #Save the comment
             new_comment.save()
