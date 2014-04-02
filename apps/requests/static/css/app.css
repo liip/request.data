@@ -239,15 +239,15 @@ div.title {
 span.title {
   font-size: 30px;
 }
-span.request_title {
+span.item_title {
   font-size: 24px;
   font-weight: bold;
 }
-span.title, span.request_title, span.creator, span.created, span.agency, span.comment, span.description {
+span.title, span.item_title, span.creator, span.created, span.agency, span.comment, span.description {
   color: #444;
 }
 span.title a,
-span.request_title a,
+span.item_title a,
 span.creator a,
 span.agency a {
   color: #444;
@@ -256,8 +256,8 @@ span.agency a {
 }
 span.title a:hover,
 span.title a:focus,
-span.request_title a:hover,
-span.request_title a:focus,
+span.item_title a:hover,
+span.item_title a:focus,
 span.creator a:hover,
 span.creator a:focus,
 span.agency a:hover,
@@ -316,7 +316,7 @@ span.description {
 .request_state {
   padding-top: 5px;
 }
-.request_description {
+.item_description {
   padding-top: 15px;
 }
 
