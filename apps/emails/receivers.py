@@ -66,7 +66,7 @@ def handle_inbound(sender, event_type, data, **kwargs):
                             idx_to_use = idx - 2
 
                         comment = ''
-                        for line in lines[0:idx_to_use]:
+                        for line in lines[0:idx_to_use - 1]:
                             comment += line
 
                         # check if the comment is already in the database
