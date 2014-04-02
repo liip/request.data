@@ -1,5 +1,6 @@
-{% extends "requests/base.html" %}
+{% extends "base.html" %}
 
+{% load bootstrap3 %}
 {% block title %}{{req.title}}{% endblock %}
 
 {% block jumbotron %}
@@ -21,7 +22,7 @@
 
 {% block content %}
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 title">
         <span class="title">{{ req.title }}</span>
       </div>
     </div>
@@ -31,31 +32,60 @@
           <span class="helper_text">created by {{ req.creator.name }} at {{ req.created }}</span>
         </div>
         <div class="request_assigned">
-          <span class="helper_text">assigned to </span>
-          <a href="{% url "apps.requests.views.agency_list" req.agency.a_name %}"><span class="agency">{{ req.agency.a_name }}</span>
+            <span class="helper_text">assigned to </span><span class="agency"><a href="{% url "apps.requests.views.agency_list" req.agency.a_name %}">{{ req.agency.a_name }}</a></span>
         </div>
         <div class="request_state">
-          <a href="{% url "apps.requests.views.request_list" req.state %}"><span class="batch batch-{{ req.state }}"></span><span class="state {{ req.state }}">{{ req.state }}</span></a>
+          <span class="state {{ req.state }}"><a href="{% url "apps.requests.views.request_list" req.state %}"><span class="batch batch-{{ req.state }}"></span>{{ req.state }}</a></span>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="request_description">
+        <div class="item_description">
           <span class="description">{{req.description}}</span>
         </div>
       </div>
     </div>
     <div class="line-separator"></div>
     <div class="row">
-      <div class="col-md-12">
-        <span class="title">Comments</span>
+      <div class="col-md-12 title">
+        <span class="title">Comment on this request</span>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 comment-form">
+          <form role="form" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form comment_form %}
+            {% bootstrap_form user_form %}
+              <span class="helper_text">Commenting will subscribe you to emails about further comments and updates to this request.</span>
+            {% buttons %}
+              <button type="submit" class="btn btn-primary">
+                Submit comment
+              </button>
+            {% endbuttons %}
+          </form>
+      </div>
+    </div>
+    <div class="line-separator"></div>
+      <div class="row">
+        <div class="col-md-12 title">
+          <span class="title">Comments</span>
+        </div>
+      </div>
+    <div class="row">
       <div class="col-md-12">
         {% for c in req.comments.all %}
-          <div>
-            <span class="comment">{{c.description}}</span>
+          <div class="comment_commenter">
+            <span class="helper_text_bold">Response from {{c.creator}}</span>
           </div>
+          <div class="comment_creation">
+            <span class="helper_text">Posted at {{c.created}}</span>
+          </div>
+          <div class="comment_text">
+            <span class="comment_text">{{c.description}}</span>
+          </div>
+          <div class="line-separator"></div>
         {% endfor %}
       </div>
     </div>

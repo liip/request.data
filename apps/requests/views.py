@@ -41,16 +41,18 @@ def index(request):
 
             # Linking the creator to the request
             new_request = request_form.save(commit=False)
-            try:
-                new_request.creator = User.objects.get(email=user_form.cleaned_data['email'])
-            except User.DoesNotExist:
-                if user_form.is_valid():
-                    new_request.creator = user_form.save()
-                else:
-                    return HttpResponseRedirect('/', c)
+            if user_form.is_valid():
+                try:
+                    new_request.creator = User.objects.get(email=user_form.cleaned_data['email'])
+                except User.DoesNotExist:
+                    new_user = User(name=user_form.cleaned_data['name'], email=user_form.cleaned_data['email'])
+                    new_user.save()
+                    new_request.creator = new_user
+            else:
+                return HttpResponseRedirect('/', c)
 
             # Linking the agency to the request
-            new_request = request_form.save(commit=False)
+            # new_request = request_form.save(commit=False)
             # if not new_request.agency:
                 # new_agency = agency_form.save(commit=False)
                 # new_agency.email = "unknown@unknown.com"
@@ -78,7 +80,39 @@ def index(request):
         return render(request, "requests/index.html", c)
 
 def request_detail(request, request_id):
-    return render(request, "requests/request_detail.html", {"req": go4(Request, id=request_id)})
+    c = {}
+    req = go4(Request, id=request_id)
+    c['comment_form'] = CommentForm()
+    c['user_form'] = UserForm()
+    c['req'] = req
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        user_form = UserForm(request.POST)
+
+        if comment_form.is_valid() and user_form.is_valid():
+            # Save the description to a new comment
+            new_comment = comment_form.save(commit=False)
+
+            # Set the comment's creator to the user, and add user if it doesn't exist
+            try:
+                new_comment.creator = User.objects.get(email=user_form.cleaned_data['email'])
+            except User.DoesNotExist:
+                new_user = User(name=user_form.cleaned_data['name'], email=user_form.cleaned_data['email'])
+                new_user.save()
+                new_comment.creator = new_user
+
+            # Set the comment's request
+            new_comment.request = req
+
+            # Add the commenter to the users of the request
+            req.users.add(new_comment.creator)
+
+            #Save the comment
+            new_comment.save()
+            comment_form.save_m2m()
+
+    return render(request, "requests/request_detail.html", c)
 
 def request_list(request, state):
     c = {}

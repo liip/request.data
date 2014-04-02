@@ -1,1 +1,58 @@
-<h1>FAQ PAGE</h1>
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% block title %}request.opendata.ch FAQ{% endblock %}
+
+{% block content %}
+
+  {% block page_title %}
+    <div class="row">
+      <div class="col-md-12">
+        <span class="title">FAQ</span>
+      </div>
+    </div>
+  {% endblock %}
+
+  <div class="line-separator"></div>
+
+  <div class="col-md-12">
+    <div class="row">
+      <div class="item_title">
+        <span class="item_title">How does this work?</span>
+      </div>
+      <div class="item_description">
+        <span class="item_description">
+          <ul>
+            <li>Fill out the form on our front page with details on the data you want, and what agency you're asking for it.</li>
+            <li>Your request is automatically emailed to the agency.</li>
+            <li>Agencies can reply to requests directly by email. Replies are posted as a comment on the request detail page, and emailed directly to you.</li>
+            <li>You can can add comments to the request via the comment form, or by replying to email replies. Your comments will also be emailed to requester, agency and other commenters.</li>
+            <li>The result is that communication between requester, agency and interested commenters takes place largely by email but is also archived openly on the website.</li>
+            <li>When the requested data has been made open, it's marked as resolved. If the agency denies the request, it's marked as denied.</li>
+          </ul>
+        </span>
+      </div>
+      <div class="line-separator"></div>
+      <div class="item_title">
+        <span class="item_title">Why do you need my email address?</span>
+      </div>
+      <div class="item_description">
+        <span class="item_description">For a good reason.</span>
+      </div>
+      <div class="line-separator"></div>
+      <div class="item_title">
+        <span class="item_title">How can I stop receiving emails about a request?</span>
+      </div>
+      <div class="item_description">
+        <span class="item_description">Ask Philipp Küng nicely.</span>
+      </div>
+      <div class="line-separator"></div>
+      <div class="item_title">
+        <span class="item_title">The data I need comes from an agency not on your list. What can I do?</span>
+      </div>
+      <div class="item_description">
+        <span class="item_description">Wait until the next stage of development.</span>
+      </div>
+    </div>
+  </div>
+{% endblock %}
