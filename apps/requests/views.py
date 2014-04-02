@@ -112,6 +112,13 @@ def request_detail(request, request_id):
             new_comment.save()
             comment_form.save_m2m()
 
+            # Notify the agency and the users subscribed about the new comments
+            notify_event.send(
+                sender=request,
+                request=new_comment.request,
+                comment=new_comment,
+                creator=new_comment.creator)
+
     return render(request, "requests/request_detail.html", c)
 
 def request_list(request, state):
