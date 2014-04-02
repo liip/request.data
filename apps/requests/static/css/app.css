@@ -152,6 +152,7 @@ a.btn-text:focus {
   border-color: #B0B0AD;
   font-size: 18px;
   font-weight: bold;
+  margin-top: 10px;
 }
 .comment-form .btn-primary:hover,
 .comment-form .btn-primary:focus,
@@ -231,10 +232,12 @@ a.btn-text:focus {
   font-size: 24px;
 }
 
+div.title {
+  margin-bottom: 15px;
+}
+
 span.title {
   font-size: 30px;
-  text-transform: capitalize;
-  padding-bottom: 40px;
 }
 span.request_title {
   font-size: 24px;

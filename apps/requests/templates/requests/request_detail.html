@@ -22,7 +22,7 @@
 
 {% block content %}
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 title">
         <span class="title">{{ req.title }}</span>
       </div>
     </div>
@@ -48,10 +48,32 @@
     </div>
     <div class="line-separator"></div>
     <div class="row">
-      <div class="col-md-12">
-        <span class="title">Comments</span>
-        <div class="line-separator"></div>
+      <div class="col-md-12 title">
+        <span class="title">Comment on this request</span>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 comment-form">
+          <form role="form" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form comment_form %}
+            {% bootstrap_form user_form %}
+              <span class="helper_text">Commenting will subscribe you to emails about further comments and updates to this request.</span>
+            {% buttons %}
+              <button type="submit" class="btn btn-primary">
+                Submit comment
+              </button>
+            {% endbuttons %}
+          </form>
+      </div>
+    </div>
+    <div class="line-separator"></div>
+      <div class="row">
+        <div class="col-md-12 title">
+          <span class="title">Comments</span>
+        </div>
+      </div>
+    <div class="row">
       <div class="col-md-12">
         {% for c in req.comments.all %}
           <div class="comment_commenter">
@@ -65,19 +87,6 @@
           </div>
           <div class="line-separator"></div>
         {% endfor %}
-      </div>
-      <div class="col-md-12 comment-form">
-          <form role="form" method="post" class="form">
-            {% csrf_token %}
-            {% bootstrap_form comment_form %}
-            {% bootstrap_form user_form %}
-              <span class="helper_text">Commenting will subscribe you to emails about further comments and updates to this request.</span>
-            {% buttons %}
-              <button type="submit" class="btn btn-primary">
-                Submit comment
-              </button>
-            {% endbuttons %}
-          </form>
       </div>
     </div>
 {% endblock %}
