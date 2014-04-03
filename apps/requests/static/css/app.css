@@ -183,6 +183,12 @@ a.btn-text:focus {
   vertical-align: middle;
   font-family: M3MonoRegular;
 }
+@media (max-width: 500px) {
+  .navbar-brand {
+    font-size: 22px;
+  }
+}
+
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
   color: #444444;
