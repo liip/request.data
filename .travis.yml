@@ -1,0 +1,20 @@
+language: python
+python:
+- '2.7'
+install:
+- pip install -r requirements.txt
+- npm install -g casperjs
+- wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+before_script:
+- foreman start &
+script: ./test.sh
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  api_key:
+    secure: Y7DkAgbtF2U694iR/TPiDT00/D3fpEUzYOuOnujRlpcvmQFEkKeaSG4com2ql0KAVAIe5pqm+Zmkb05NVgdjuziNTBmrnqqCM8a+IUb+/zeDVtc42jL2fnEq6Ko/741U0SV22e8rPbEUwLFs+P5NzebjTHK1MNV7eBFTrDXs+Rw=
+  app:
+    master: request-data
+  on:
+    repo: liip/request.data
+    python: '2.7'
