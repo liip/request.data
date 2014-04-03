@@ -255,13 +255,14 @@ span.item_title {
   font-size: 24px;
   font-weight: bold;
 }
-span.title, span.item_title, span.creator, span.created, span.agency, span.comment, span.description {
+span.title, span.item_title, span.creator, span.created, span.agency, span.comment, span.item_description {
   color: #444;
 }
 span.title a,
 span.item_title a,
 span.creator a,
-span.agency a {
+span.agency a,
+span.item_description a {
   color: #444;
   text-decoration-color: #444;
   -moz-text-decoration-color: #444;
@@ -273,7 +274,9 @@ span.item_title a:focus,
 span.creator a:hover,
 span.creator a:focus,
 span.agency a:hover,
-span.agency a:focus {
+span.agency a:focus,
+span.item_description a:hover,
+span.item_description a:focus, {
   color: #444;
   text-decoration-color: #444;
   -moz-text-decoration-color: #444;
@@ -319,7 +322,7 @@ span.state a:focus {
   text-decoration-color: #7D7D7B;
   -moz-text-decoration-color: #7D7D7B;
 }
-span.description {
+span.item_description {
   font-size: 18px;
 }
 
